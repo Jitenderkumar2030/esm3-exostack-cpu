@@ -1,151 +1,158 @@
-Here is a comprehensive `README.md` file for your `ESM` project that reflects the full structure and purpose of your integration:
 
----
+# 🧬 ESM Project Integration
 
-```markdown
-# ESM + ExoStack Integration Project
-
-This repository integrates **EvolutionaryScale’s ESM (Evolutionary Scale Modeling)** models with the **ExoStack** deployment framework. It enables cutting-edge AI-based protein sequence modeling, inference, and deployment within containerized or cloud environments.
+This project integrates [EvolutionaryScale's ESM models](https://github.com/facebookresearch/esm) with a custom-built **ExoStack** framework to deliver powerful AI-based **protein analysis and prediction tools**.
 
 ---
 
 ## 📁 Project Structure
 
-```
-
-ESM/
-├── esm/                  # ESM protein language models (original from EvolutionaryScale)
-│   ├── esm/              # Core model code, including tokenization, layers, pretrained configs
-│   ├── tools/            # Utility scripts
-│   ├── cookbook/         # Sample notebooks and usage examples
-│   ├── pyproject.toml    # Python project definition
-│   └── README.md         # Original ESM readme
-│
-├── exostack/             # ExoStack model deployment and management framework
-│   ├── exo\_agent/        # Handles model execution (including esm3\_executor)
-│   ├── exo\_hub/          # Deployment orchestrator
-│   ├── exo\_cli/          # CLI tool for managing models
-│   ├── exo\_ui/           # UI frontend for managing inference
-│   ├── docker/           # Dockerfile(s) for containers
-│   ├── k8s/              # Kubernetes deployment specs
-│   ├── scripts/          # Setup, deployment and helper scripts
-│   └── requirements.txt  # ExoStack dependencies
-│
-├── models/               # Pretrained/fine-tuned model files (to be added)
-├── logs/                 # Logs generated during training/inference
-└── esm3env/              # Python virtual environment (excluded from Git)
-
-````
+| Path           | Description                                                                            |
+|----------------|----------------------------------------------------------------------------------------|
+| `esm/`         | Contains the ESM (Evolutionary Scale Modeling) protein language models from Meta AI.  |
+| `exostack/`    | Custom ExoStack framework for deploying models and handling inference APIs.           |
+| `models/`      | Directory for storing pretrained and fine-tuned model checkpoints.                    |
+| `logs/`        | Logs generated during training and inference.                                          |
+| `esm3env/`     | Python virtual environment (not committed to Git).                                     |
 
 ---
 
 ## 🛠️ Setup Instructions
 
-### 1. Clone the Repository
-
-```bash
-git clone https://github.com/yourusername/ESM
-cd ESM
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/yourusername/ESM
+   cd ESM
 ````
 
-### 2. Create and Activate Virtual Environment
+2. **Create and Activate Virtual Environment**
+
+   ```bash
+   python3 -m venv esm3env
+   source esm3env/bin/activate  # On Windows: esm3env\Scripts\activate
+   ```
+
+3. **Install Dependencies**
+
+   ```bash
+   pip install -r esm/requirements.txt
+   ```
+
+4. **(Optional) Install Extra Tools for ExoStack**
+
+   ```bash
+   pip install -r exostack/requirements.txt
+   ```
+
+---
+
+## 🚀 Usage
+
+### Predict Protein Properties
+
+You can use the CLI or ExoStack APIs to run predictions using ESM models.
 
 ```bash
-python3 -m venv esm3env
-source esm3env/bin/activate
+cd esm
+python examples/esm1b_toks.py --sequence "MGSSHHHHHHSSGLVPRGSH..." --model esm1b_t33_650M_UR50S
 ```
 
-### 3. Install ESM Dependencies
+> Replace the sequence and model name with your specific use case.
+
+---
+
+## 🧪 Testing & Training
+
+### Fine-tune on Custom Dataset
+
+```bash
+python train.py --data-dir ./your_dataset --output-dir ./models/fine_tuned_model
+```
+
+### Evaluate Model
+
+```bash
+python evaluate.py --model ./models/fine_tuned_model --test-set ./your_test_data.csv
+```
+
+---
+
+## 🔐 Environment Variables
+
+Create a `.env` file for sensitive configs (if needed by ExoStack APIs):
+
+```
+MODEL_DIR=./models
+PORT=8000
+LOG_LEVEL=INFO
+```
+
+---
+
+## 🌐 Run ExoStack Server
+
+Start the model inference server:
+
+```bash
+cd exostack
+python server.py
+```
+
+Access locally at: `http://localhost:8000`
+
+---
+
+## 📦 Pretrained Models
+
+* `esm1_t6_43M_UR50S`
+* `esm1b_t33_650M_UR50S`
+* `esm2_t36_3B_UR50D`
+
+Refer to [ESM model zoo](https://github.com/facebookresearch/esm#available-models) for more details.
+
+---
+
+## 🧠 Features
+
+* Fast tokenization and inference
+* Plug-and-play API via ExoStack
+* Easily extensible for new datasets
+* Logs and metrics tracking
+* Clean modular codebase
+
+---
+
+## ✅ Requirements
+
+* Python ≥ 3.8
+* PyTorch ≥ 1.10
+* tqdm, biopython, flask (for APIs)
+
+Install via:
 
 ```bash
 pip install -r esm/requirements.txt
 ```
 
-### 4. Install ExoStack Dependencies
-
-```bash
-cd exostack
-pip install -r requirements.txt
-cd ..
-```
-
 ---
 
-## 🧬 About ESM (Evolutionary Scale Modeling)
+## 🙏 Credits
 
-The ESM models are protein language models trained on massive protein sequence datasets. They can be used for:
-
-* Protein structure and function prediction
-* Mutation effect estimation
-* Protein embedding generation
-* Alignment-free sequence analysis
-
-> 🔗 Original ESM GitHub: [https://github.com/facebookresearch/esm](https://github.com/facebookresearch/esm)
-
----
-
-## 🚀 About ExoStack
-
-ExoStack is a scalable, modular deployment platform built to execute and serve machine learning models in production environments. It includes:
-
-* Agent-based execution (`exo_agent`)
-* REST API and Web UI (`exo_hub`, `exo_ui`)
-* Kubernetes and Docker support for scaling
-
----
-
-## ✅ Running a Sample Inference (Example)
-
-After activating your environment and installing requirements:
-
-```bash
-python esm/esm/pretrained.py
-```
-
-To run with ExoStack:
-
-```bash
-cd exostack
-python cli.py run esm
-```
-
-*(Update as per your specific CLI structure and command usage)*
-
----
-
-## 📝 Notes
-
-* The `.git` folder in `esm/` was removed to avoid submodule-related issues.
-* Make sure to install all required packages using the correct `requirements.txt`.
-* You can build and run ExoStack via Docker/Kubernetes for scalable deployments.
+* [Meta AI - ESM](https://github.com/facebookresearch/esm)
+* \[Your Name or Team]
+* \[ExoStack - Internal Framework or Link if Open Source]
 
 ---
 
 ## 📄 License
 
-* `esm/`: Licensed under MIT License (© Meta AI)
-* `exostack/`: Custom framework, license defined by the organization (update accordingly)
-
----
-
-## 👨‍🔬 Contributors
-
-* \[Your Name] - Integration and Setup
-* EvolutionaryScale - ESM model development
-* ExoStack Authors - Deployment framework
+This integration is under the MIT License. Refer to individual folders (`esm/`) for their respective licenses.
 
 ---
 
 ## 📬 Contact
 
-For any inquiries or support:
+For questions, contact:
+📧 `your.email@example.com`
+🐦 Twitter: [@yourhandle](https://twitter.com/yourhandle)
 
-* Email: [your.email@example.com](mailto:your.email@example.com)
-* GitHub: [yourusername](https://github.com/yourusername)
-
-```
-
----
-
-Let me know if you'd like a simplified or advanced version for deployment, Docker, or API use cases.
-```
