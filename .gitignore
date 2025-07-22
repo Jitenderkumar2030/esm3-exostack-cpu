@@ -1,0 +1,39 @@
+# Python cache files
+__pycache__/
+*.py[cod]
+
+# Environment
+*.env
+*.venv
+.env/
+.venv/
+esm3env/
+
+# Byte-compiled files
+*.pyo
+*.pyd
+*.pyc
+
+# Model files
+models/*.pt
+models/*/
+
+# Logs
+logs/
+*.log
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# VSCode and PyCharm configs
+.vscode/
+.idea/
+
+# Pip wheel and egg
+*.egg-info/
+dist/
+build/
