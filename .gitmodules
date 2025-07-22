@@ -1,0 +1,6 @@
+[submodule "esm"]
+	path = esm
+	url = https://github.com/evolutionaryscale/esm.git
+[submodule "exostack"]
+	path = exostack
+	url = https://github.com/Jitenderkumar2030/exostack.git
